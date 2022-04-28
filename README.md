@@ -1,3 +1,5 @@
+[![Build Status](https://jenkins.paz.ienza.tech/job/blog-website/job/main/badge/icon)](https://jenkins.paz.ienza.tech/job/blog-website/job/main/)
+
 # BlogWebsite
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.5.
