@@ -27,7 +27,7 @@ pipeline {
             steps {
                 sh '''
                   git pull --tags origin $GIT_BRANCH
-                  version=$(git describe)
+                  version=$(git describe --tags)
                   sed -i -e "s/<!--build_number-->/${version}/g" $WORKSPACE/dist/blog-website/index.html
                   mkdir -p /var/www/html/blog.ienza.tech/$GIT_BRANCH
                   cp -R $WORKSPACE/dist/blog-website/* /var/www/html/blog.ienza.tech/$GIT_BRANCH/
