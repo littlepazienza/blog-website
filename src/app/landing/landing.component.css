@@ -1,0 +1,34 @@
+img#plants {
+  position: fixed;
+  bottom: -160px;
+  z-index: -10;
+  left: -20px;
+  width: 100%;
+  filter: opacity(50%);
+}
+
+img#tree {
+  position: fixed;
+  bottom: -160px;
+  z-index: -10;
+  right: -50%;
+  width: 100%;
+  filter: contrast(10%);
+}
+
+
+body {
+  margin: 0px !important;
+}
+
+.menu-button {
+  background: rgba(50, 121, 14, 0.57);
+}
+
+mat-toolbar {
+  background: #1D911D;
+}
+
+mat-toolbar-row {
+  padding: 10px;
+}
