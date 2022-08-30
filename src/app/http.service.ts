@@ -5,6 +5,9 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 
+/*
+ * The path to the endpoint returning the list of all blog entries. 
+ */
 const GET_ALL_BLOGS_ENDPOINT = "http://71.192.160.144:10443/manage/all";
 
 @Injectable({

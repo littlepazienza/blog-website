@@ -15,21 +15,81 @@
 
 <mat-tab-group mat-align-tabs="center" animationDuration="0">
   <mat-tab label="Planting">
-    <ng-template matTabContent>
-      {{getStory("Planting")}}
+    <ng-template matTabContent ngOnInit="">
+      <div class="story-box">
+        <div class="header">
+          Planting
+        </div>
+        <div class="header-subtext">
+          I will be posting progress updates for some of my favorite plants here.
+          Unlike my mother Nancy and my sister Jess, I am no expert in the Gardening Arts,
+          but I have fun with it and I have ammased a great collection of succulents, vines,
+          and a few odds and ends!
+        </div>
+        <div class="header-photos">
+          <img src="../../assets/img/IMG_2607.jpeg" class="header-photo">
+          <img src="../../assets/img/IMG_2608.jpeg" class="header-photo">
+          <img src="../../assets/img/IMG_2609.jpeg" class="header-photo">
+        </div>
+      </div>
+      <div class="box"></div>
+      <hr>
+      <div class="box"></div>
+      <app-story [allBlogs]="allBlogs" [story]="'Planting'"></app-story>
     </ng-template>
   </mat-tab>
   <mat-tab label="Cooking">
     <ng-template matTabContent>
-      {{getStory("Cooking")}}
+      <div class="story-box">
+        <div class="header">
+          Cooking
+        </div>
+        <div class="header-subtext">
+          Anything extravagant that I cook will be photographed and posted here. I don't make
+          the most professional dishes, but I can make a lot and I try new things which is fun for me.
+          My specialties are my homeade pasta and my dumplings. I have an HMART and a Whole Foods near
+          me that I can walk to and get everything I need. I also have a target to feed my violent
+          Utz and Flamin' Hot Cheetos obsessions.
+        </div>
+        <div class="header-photos">
+          <img src="../../assets/img/IMG_2432.jpeg" class="header-photo">
+          <img src="../../assets/img/IMG_2583.jpeg" class="header-photo">
+          <img src="../../assets/img/IMG_2611.jpeg" class="header-photo">
+        </div>
+      </div>
+      <div class="box"></div>
+      <hr>
+      <div class="box"></div>
+      <app-story [allBlogs]="allBlogs" [story]="'Cooking'"></app-story>
     </ng-template>
   </mat-tab>
-  <mat-tab label="Coding">
+  <mat-tab label="Programming">
     <ng-template matTabContent>
-      {{getStory("Coding")}}
+      <div class="story-box">
+        <div class="header">
+          Programming
+        </div>
+        <div class="header-subtext">
+          I write code professionally, and although I am not able to share that code with the world
+          due to the NDA I had to sign, I have written some code in my free time that I can share.
+          I enjoy making small projects, websites, and learning new languages. I have spent some
+          time recently learning rust, but I can always go back to the basics for a java or js
+          project if the situation merits it. Please enjoy :) All my stuff is open source on
+          my <a href="https://github.com/littlepazienza">github</a>.
+        </div>
+        <div class="header-photos">
+          <img src="../../assets/img/coding-1.jpeg" class="header-photo">
+          <img src="../../assets/img/coding-2.jpeg" class="header-photo">
+          <img src="../../assets/img/coding-3.jpeg" class="header-photo">
+        </div>
+      </div>
+      <div class="box"></div>
+      <hr>
+      <div class="box"></div>
+      <app-story [allBlogs]="allBlogs" [story]="'Programming'"></app-story>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
 
-<img id="plants" src="https://svgsilh.com/svg/146978.svg">
+<!-- <img id="plants" src="https://svgsilh.com/svg/146978.svg"> -->
 <img id="tree" src="https://svgsilh.com/svg/1297420.svg">

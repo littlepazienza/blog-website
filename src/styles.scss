@@ -8,3 +8,13 @@
 * {
   @include angular-material-typography($jetbrains-typography);
 }
+
+body {
+  height: 100%;
+}
+
+.build-number {
+  justify-content: center;
+  display: flex;
+  font-size: 10px; font-family: Roboto, 'Helvetica Neue', sans-serif !important ;padding-top: 50px;padding-bottom: 10px;position: absolute; width: 100%;
+}

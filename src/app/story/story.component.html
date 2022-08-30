@@ -1,0 +1,11 @@
+<div *ngIf="allBlogs.length > 0" class="latest">
+Latest Posts
+</div>
+<div *ngIf="allBlogs.length == 0" class="latest">
+  No posts yet.
+</div>
+<div *ngFor="let blog of allBlogs; let i = index" class="blog-posts">
+    <div *ngIf="blog.story == story">
+      <app-post [blog]="blog"></app-post>
+    </div>
+</div>

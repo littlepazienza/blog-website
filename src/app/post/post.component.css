@@ -1,0 +1,4 @@
+mat-card {
+  background: rgba(51, 170, 51, .5);   /*  10% opaque green */
+  border-radius: 10px;
+}
