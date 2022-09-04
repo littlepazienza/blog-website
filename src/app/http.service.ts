@@ -8,7 +8,7 @@ import { catchError, retry } from 'rxjs/operators';
 /*
  * The path to the endpoint returning the list of all blog entries. 
  */
-const GET_ALL_BLOGS_ENDPOINT = "http://localhost:34000/manage/all";
+const GET_ALL_BLOGS_ENDPOINT = "http://localhost:34001/manage/all";
 
 @Injectable({
   providedIn: 'root'
