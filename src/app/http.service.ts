@@ -4,11 +4,10 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
-
 /*
- * The path to the endpoint returning the list of all blog entries. 
+ * The path to the endpoint returning the list of all blog entries.
  */
-const GET_ALL_BLOGS_ENDPOINT = "http://159.89.48.157:34001/manage/all";
+const GET_ALL_BLOGS_ENDPOINT = "https://server.blog.ienza.tech/manage/all";
 
 @Injectable({
   providedIn: 'root'
