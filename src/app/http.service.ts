@@ -6,16 +6,19 @@ import { catchError, retry } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { Blog } from './blog';
 import { MockBlogDataService } from './services/mock-blog-data.service';
+import { environment } from '../environments/environment';
 
 /*
  * The path to the endpoint returning the list of all blog entries.
  */
 /**
  * NOTE: During local development we point the frontend directly at the
- * Docker-compose Rocket instance (port 34001).  Update this value (or make
- * it environment-specific) when deploying to staging/production.
+ * Docker-compose backend (port 34001).  In production the value comes from
+ * `environment.apiUrl` (e.g. https://server.blog.ienza.tech).  Fallback to
+ * localhost if the environment var is missing (useful for unit tests).
  */
-const GET_ALL_BLOGS_ENDPOINT = "http://localhost:34001/manage/all";
+const GET_ALL_BLOGS_ENDPOINT =
+  `${environment.apiUrl || 'http://localhost:34001'}/manage/all`;
 
 @Injectable({
   providedIn: 'root'
