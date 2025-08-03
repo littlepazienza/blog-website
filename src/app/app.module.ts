@@ -17,12 +17,14 @@ import { PostComponent } from './post/post.component';
 import { AdminComponent } from './admin/admin.component';
 import { StoryComponent } from './story/story.component';
 import { NewspaperLandingComponent } from './newspaper-landing/newspaper-landing.component';
-import { PostDetailComponent } from './post-detail/post-detail.component';
+// Moved PostDetailComponent into dedicated `components` folder
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { PostExplorerComponent } from './post-explorer/post-explorer.component';
 import { CodeSnippetDailyComponent } from './widgets/code-snippet-daily/code-snippet-daily.component';
 import { GithubActivityComponent } from './widgets/github-activity/github-activity.component';
 import { SpotifyActivityComponent } from './widgets/spotify-activity/spotify-activity.component';
 import { PlantCareReminderComponent } from './widgets/plant-care-reminder/plant-care-reminder.component';
+import { FormsModule } from '@angular/forms';   // <-- Needed for ngModel in PostExplorer
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { PlantCareReminderComponent } from './widgets/plant-care-reminder/plant-
     MatTabsModule,
     MatCommonModule,
     MatCardModule,
+    FormsModule,          // <-- Two-way binding & template forms
   ],
   providers: [],
   bootstrap: [AppComponent]
