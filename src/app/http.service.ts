@@ -24,6 +24,12 @@ export class HttpService {
   constructor(private httpClient: HttpClient, private mockBlogDataService: MockBlogDataService) {}
 
   /**
+   * Toggle between mock-data service and real backend.
+   * Set to false once Docker/Rust backend is running.
+   */
+  private USE_MOCK_DATA = true;
+
+  /**
    * Fetch all blog entries.
    *
    * The backend returns a JSON array of Blog objects – use HttpClient's
@@ -33,18 +39,25 @@ export class HttpService {
    * Remove this and uncomment the HTTP client code when backend is available.
    */
   getAllBlogs(): Observable<Blog[]> {
-    // TEMPORARY: Using mock data instead of real HTTP request
-    return this.mockBlogDataService.getBlogData();
-    
-    // Uncomment when backend is available:
-    /*
+    if (this.USE_MOCK_DATA) {
+      // Development mode – pull from local in-memory service
+      return this.mockBlogDataService.getBlogData();
+    }
+
+    // Real backend mode
     return this.httpClient
       .get<Blog[]>(GET_ALL_BLOGS_ENDPOINT)
       .pipe(
         retry(2),                 // retry a couple of times before failing
         catchError(this.handleError)
       );
-    */
+  }
+
+  /**
+   * Call this from any component/service after Docker backend comes online.
+   */
+  switchToRealBackend(): void {
+    this.USE_MOCK_DATA = false;
   }
 
   /**
@@ -52,8 +65,12 @@ export class HttpService {
    * subscribers can react accordingly.
    */
   private handleError(error: any) {
-    // In a real-world app we might send the error to remote logging infra
-    console.error('HTTP error occurred:', error);
+    // Provide more context in console for easier debugging
+    if (error.status === 0) {
+      console.error('Network error – backend may be unreachable:', error);
+    } else {
+      console.error(`Backend returned code ${error.status}, body was:`, error.error);
+    }
     return throwError(() => error);
   }
 }

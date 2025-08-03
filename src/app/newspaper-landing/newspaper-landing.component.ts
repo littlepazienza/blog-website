@@ -21,6 +21,25 @@ export class NewspaperLandingComponent implements OnInit {
   constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
+    this.loadBlogs();
+  }
+
+  /**
+   * Manually flip the HttpService from mock data ➜ real backend and
+   * immediately refresh the landing-page content.  Useful once the
+   * Docker/Rust backend starts running.
+   */
+  testBackendConnection(): void {
+    console.info('[NewspaperLanding] Switching to real backend …');
+    this.httpService.switchToRealBackend();
+    this.loadBlogs();
+  }
+
+  /**
+   * Fetch posts (mock or real depending on HttpService state) and populate
+   * the featured & recent sections.
+   */
+  private loadBlogs(): void {
     this.httpService.getAllBlogs().subscribe({
       next: (blogs: Blog[]) => {
         if (!blogs || blogs.length === 0) {
