@@ -40,7 +40,7 @@
         <img [src]="featuredPost.files[0]" alt="Featured post image">
       </div>
       <p class="post-excerpt">{{ featuredPost.text | slice:0:300 }}...</p>
-      <a [routerLink]="['/post', featuredPost.id]" class="read-more">Continue Reading →</a>
+      <a [routerLink]="['/post', featuredPost._id]" class="read-more">Continue Reading →</a>
     </div>
     <ng-template #noFeaturedPost>
       <div class="placeholder-content">
@@ -58,7 +58,7 @@
     </div>
     <div class="recent-posts-list" *ngIf="recentPosts && recentPosts.length > 0; else noRecentPosts">
       <div class="recent-post-item" *ngFor="let post of recentPosts">
-        <h4><a [routerLink]="['/post', post.id]">{{ post.title }}</a></h4>
+        <h4><a [routerLink]="['/post', post._id]">{{ post.title }}</a></h4>
         <p class="post-category">{{ post.story }}</p>
         <p class="post-date">{{ post.date }}</p>
       </div>

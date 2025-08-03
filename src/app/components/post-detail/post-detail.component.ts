@@ -58,7 +58,7 @@ export class PostDetailComponent implements OnInit {
      */
     this.http.getAllBlogs().subscribe({
       next: blogs => {
-        const found = blogs.find(b => b.id === id);
+        const found = blogs.find(b => (b as any)._id === id);
         if (!found) {
           this.notFound = true;
           this.post     = null;
@@ -74,7 +74,7 @@ export class PostDetailComponent implements OnInit {
 
         /* Load up to 3 related posts from the same category */
         this.relatedPosts = blogs
-          .filter(b => b.story === found.story && b.id !== found.id)
+          .filter(b => b.story === found.story && (b as any)._id !== (found as any)._id)
           .slice(0, 3);
       },
       error: err => {

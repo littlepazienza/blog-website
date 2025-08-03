@@ -111,7 +111,7 @@
   <!-- Results Grid -->
   <div class="posts-grid" *ngIf="pagedPosts.length > 0">
     <div class="post-card" *ngFor="let post of pagedPosts">
-      <a [routerLink]="['/post', post.id]" class="post-link">
+      <a [routerLink]="['/post', post._id]" class="post-link">
         <!-- Post Image (if available) -->
         <div class="post-image" *ngIf="post.files && post.files.length > 0">
           <img [src]="post.files[0]" [alt]="'Image for ' + post.title">

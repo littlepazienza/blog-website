@@ -3,7 +3,8 @@
  */
 export interface Blog {
   date: string;
-  id: string;
+  /** MongoDB document identifier */
+  _id: string;
   story: string;
   title: string;
   text: string;

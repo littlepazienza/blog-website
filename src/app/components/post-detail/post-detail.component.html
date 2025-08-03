@@ -78,7 +78,7 @@
     <h3 class="related-posts-title">More Articles in {{ post.story }}</h3>
     <div class="related-posts-grid">
       <div class="related-post-card" *ngFor="let related of relatedPosts">
-        <a [routerLink]="['/post', related.id]">
+        <a [routerLink]="['/post', related._id]">
           <div class="related-post-image" *ngIf="related.files && related.files.length > 0">
             <img [src]="related.files[0]" [alt]="'Image for ' + related.title">
           </div>
@@ -95,13 +95,13 @@
   <!-- Post Navigation -->
   <nav class="post-navigation">
     <div class="nav-previous" *ngIf="relatedPosts && relatedPosts.length > 0">
-      <a [routerLink]="['/post', relatedPosts[0].id]">
+      <a [routerLink]="['/post', relatedPosts[0]._id]">
         <span class="nav-subtitle">Previous Article</span>
         <span class="nav-title">{{ relatedPosts[0].title }}</span>
       </a>
     </div>
     <div class="nav-next" *ngIf="relatedPosts && relatedPosts.length > 1">
-      <a [routerLink]="['/post', relatedPosts[1].id]">
+      <a [routerLink]="['/post', relatedPosts[1]._id]">
         <span class="nav-subtitle">Next Article</span>
         <span class="nav-title">{{ relatedPosts[1].title }}</span>
       </a>
