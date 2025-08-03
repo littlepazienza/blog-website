@@ -26,9 +26,35 @@
     <span class="repo">{{ evt.repo?.name || 'unknown/repo' }}</span>
 
     <!-- Event description placeholder -->
-    <span class="event-desc">
-      <!-- When wired, switch by evt.type (PushEvent, WatchEvent, etc.) -->
-      {{ evt.type || 'Activity' }}
+    <span class="event-desc" [ngSwitch]="evt.type">
+      <!-- Push events -->
+      <ng-container *ngSwitchCase="'PushEvent'">
+        pushed&nbsp;
+        <ng-container *ngIf="evt.payload?.commits?.length as cnt">
+          {{ cnt }} commit{{ cnt > 1 ? 's' : '' }}
+        </ng-container>
+        to&nbsp;<strong>{{ evt.repo?.name }}</strong>
+      </ng-container>
+
+      <!-- Repo created / branch created -->
+      <ng-container *ngSwitchCase="'CreateEvent'">
+        created&nbsp;
+        <strong>{{ evt.payload?.ref_type || 'ref' }}</strong>
+        <ng-container *ngIf="evt.payload?.ref">
+          “{{ evt.payload.ref }}”
+        </ng-container>
+        in&nbsp;<strong>{{ evt.repo?.name }}</strong>
+      </ng-container>
+
+      <!-- Starred / Watch events -->
+      <ng-container *ngSwitchCase="'WatchEvent'">
+        starred&nbsp;<strong>{{ evt.repo?.name }}</strong>
+      </ng-container>
+
+      <!-- Default fall-back -->
+      <ng-container *ngSwitchDefault>
+        {{ evt.type || 'Activity' }}
+      </ng-container>
     </span>
 
     <!-- Relative date placeholder -->

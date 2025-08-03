@@ -23,21 +23,26 @@
 <!-- Populated -->
 <ng-container *ngIf="!loading && !error && snippet">
   <h3 class="snippet-title">
-    <span class="function-name">{{ snippet.functionName }}</span>
+    <span class="function-name">{{ snippet.filename }}</span>
     <span class="in-text">in</span>
-    <a [href]="snippet.repoUrl" target="_blank" rel="noopener" class="repo-link">{{ snippet.repoName }}</a>
+    <a [href]="'https://github.com/littlepazienza/' + snippet.repo"
+       target="_blank"
+       rel="noopener"
+       class="repo-link">{{ snippet.repo }}</a>
   </h3>
 
   <!-- Code Block -->
-  <pre class="code-block"><code>{{ snippet.code }}</code></pre>
+  <pre class="code-block">
+    <code [class]="'language-' + snippet.language">{{ snippet.code }}</code>
+  </pre>
 
   <!-- Description -->
-  <p class="snippet-description">{{ snippet.description }}</p>
+  <p class="snippet-description">{{ snippet.commitMessage }}</p>
 
   <!-- View on GitHub -->
   <div class="view-file-link">
-    <a [href]="snippet.fileUrl" target="_blank" rel="noopener">
-      View full file on GitHub →
+    <a [href]="snippet.commitUrl" target="_blank" rel="noopener">
+      View commit on GitHub →
     </a>
   </div>
 </ng-container>

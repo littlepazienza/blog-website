@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { GithubApiService, GitHubEvent } from '../../services/github-api.service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-github-activity',
@@ -13,66 +16,58 @@ export class GithubActivityComponent implements OnInit {
   /** Simple error flag – can be expanded into message later */
   error = false;
 
-  /** Recent GitHub events */
+  /** Recent GitHub events (already mapped for the template) */
   events: GitHubEvent[] = [];
 
   /** Max number of events to display */
   private readonly EVENT_LIMIT = 5;
 
-  constructor() { }
+  constructor(private githubApi: GithubApiService) { }
 
   ngOnInit(): void {
     this.fetchGitHubEvents();
   }
 
   /**
-   * Simulate an async call to GitHub’s Events API.
-   * Replace with real HTTP integration later.
+   * Fetch activity summary from the real GitHub API service
    */
   private fetchGitHubEvents(): void {
-    // Begin loading
     this.loading = true;
     this.error = false;
 
-    // Simulate latency
-    setTimeout(() => {
-      try {
-        // --- MOCK DATA (shape aligns with public GitHub Event payload subset) ---
-        this.events = [
-          {
-            type: 'PushEvent',
-            repo: { name: 'littlepazienza/blog-website' },
-            created_at: new Date().toISOString()
-          },
-          {
-            type: 'WatchEvent',
-            repo: { name: 'littlepazienza/awesome-rust' },
-            created_at: new Date(Date.now() - 86400000).toISOString() // yesterday
-          },
-          {
-            type: 'PullRequestEvent',
-            repo: { name: 'littlepazienza/cool-project' },
-            created_at: new Date(Date.now() - 2 * 86400000).toISOString()
-          }
-        ].slice(0, this.EVENT_LIMIT);
-      } catch (e) {
-        console.error('Mock GitHub fetch failed', e);
-        this.error = true;
-      } finally {
+    this.githubApi
+      .getActivitySummary()
+      .pipe(
+        catchError(err => {
+          console.error('GitHub activity fetch failed', err);
+          this.error = true;
+          this.loading = false;
+          return of({ events: [] }); // fall back to empty list
+        })
+      )
+      .subscribe(summary => {
+        // Convert / slice as needed for presentation
+        this.events = summary.events
+          .slice(0, this.EVENT_LIMIT)
+          .map(evt => ({
+            ...evt,
+            // Pre-format date for easier display in template
+            created_at: this.formatDate(evt.created_at)
+          }));
         this.loading = false;
-      }
-    }, 1000);
+      });
   }
 
-}
+  /**
+   * Return a short, human-readable date (e.g. “2025-08-03”)
+   */
+  private formatDate(iso: string): string {
+    return new Date(iso).toLocaleDateString(undefined, {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+  }
 
-/**
- * Minimal subset of fields used by template.
- * Extend as needed when integrating the real GitHub API.
- */
-interface GitHubEvent {
-  type: string;
-  repo: { name: string };
-  created_at: string;
 }
 

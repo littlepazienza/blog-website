@@ -17,23 +17,23 @@
 </div>
 
 <!-- Empty State -->
-<div class="widget-empty" *ngIf="!loading && tracks?.length === 0">
+<div class="widget-empty" *ngIf="!loading && recentTracks?.length === 0">
   <p>No recent Spotify activity.</p>
 </div>
 
 <!-- Recently Played Tracks -->
 <ul class="recent-track-list"
-    *ngIf="!loading && tracks && tracks.length > 0">
-  <li class="track-item" *ngFor="let track of tracks">
+    *ngIf="!loading && recentTracks && recentTracks.length > 0">
+  <li class="track-item" *ngFor="let track of recentTracks">
     <!-- Album Art -->
     <img class="album-art"
-         [src]="track.albumArt"
-         [alt]="track.album + ' album art'">
+         [src]="track?.track?.album?.images?.[0]?.url"
+         [alt]="(track?.track?.album?.name || 'album') + ' album art'">
 
     <!-- Track Info -->
     <div class="track-info">
-      <span class="track-name">{{ track.name }}</span>
-      <span class="track-artist">{{ track.artist }}</span>
+      <span class="track-name">{{ track?.track?.name }}</span>
+      <span class="track-artist">{{ track?.track?.artists?.[0]?.name }}</span>
     </div>
   </li>
 </ul>

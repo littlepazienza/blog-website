@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SpotifyApiService, SpotifyPlayHistory } from '../../services/spotify-api.service';
 
 @Component({
   selector: 'app-spotify-activity',
@@ -14,52 +15,28 @@ export class SpotifyActivityComponent implements OnInit {
   loading = true;
 
   /** Recently played tracks to display */
-  tracks: SpotifyTrack[] = [];
+  recentTracks: SpotifyPlayHistory[] = [];
+
+  /** Error flag */
+  error = false;
+
+  constructor(private spotifyApi: SpotifyApiService) {}
 
   ngOnInit(): void {
-    /*
-     * ------------------------------------------------------------------
-     * NOTE: This is mocked data so the widget renders while we wait for
-     *       real Spotify API credentials.  Replace the timeout with an
-     *       HttpClient GET to `https://api.spotify.com/v1/me/player/...`
-     *       once OAuth flow is configured.
-     * ------------------------------------------------------------------ */
-    setTimeout(() => {
-      this.tracks = [
-        {
-          name: 'Feels Like Summer',
-          artist: 'Childish Gambino',
-          album: 'Summer Pack',
-          albumArt: 'https://i.scdn.co/image/ab67616d0000b273d01d3f3f94a639a6a39aea66'
-        },
-        {
-          name: 'Lose Yourself to Dance',
-          artist: 'Daft Punk',
-          album: 'Random Access Memories',
-          albumArt: 'https://i.scdn.co/image/ab67616d0000b273acd7953c8e9851ee48e23688'
-        },
-        {
-          name: 'Under the Sun',
-          artist: 'DIIV',
-          album: 'Oshin',
-          albumArt: 'https://i.scdn.co/image/ab67616d0000b273cbb97e61ff88c19cd85307fa'
-        },
-        {
-          name: 'Saturn',
-          artist: 'Sleeping at Last',
-          album: 'Atlas: Year One',
-          albumArt: 'https://i.scdn.co/image/ab67616d0000b273a7dd567c90e1c13c4c327582'
-        },
-        {
-          name: 'everything i wanted',
-          artist: 'Billie Eilish',
-          album: 'everything i wanted',
-          albumArt: 'https://i.scdn.co/image/ab67616d0000b273db4b547b8bc27d8739ae0c24'
-        }
-      ];
+    this.loading = true;
+    this.error = false;
 
-      this.loading = false;
-    }, 900);
+    this.spotifyApi.getRecentlyPlayed(5).subscribe({
+      next: (data) => {
+        this.recentTracks = data.items;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Failed to load Spotify activity', err);
+        this.error = true;
+        this.loading = false;
+      }
+    });
   }
 
 }
