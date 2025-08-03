@@ -8,7 +8,12 @@ import { Blog } from './blog';
 /*
  * The path to the endpoint returning the list of all blog entries.
  */
-const GET_ALL_BLOGS_ENDPOINT = "https://server.blog.ienza.tech/manage/all";
+/**
+ * NOTE: During local development we point the frontend directly at the
+ * Docker-compose Rocket instance (port 34001).  Update this value (or make
+ * it environment-specific) when deploying to staging/production.
+ */
+const GET_ALL_BLOGS_ENDPOINT = "http://localhost:34001/manage/all";
 
 @Injectable({
   providedIn: 'root'
