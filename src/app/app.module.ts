@@ -16,6 +16,13 @@ import { LandingComponent } from './landing/landing.component';
 import { PostComponent } from './post/post.component';
 import { AdminComponent } from './admin/admin.component';
 import { StoryComponent } from './story/story.component';
+import { NewspaperLandingComponent } from './newspaper-landing/newspaper-landing.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
+import { PostExplorerComponent } from './post-explorer/post-explorer.component';
+import { CodeSnippetDailyComponent } from './widgets/code-snippet-daily/code-snippet-daily.component';
+import { GithubActivityComponent } from './widgets/github-activity/github-activity.component';
+import { SpotifyActivityComponent } from './widgets/spotify-activity/spotify-activity.component';
+import { PlantCareReminderComponent } from './widgets/plant-care-reminder/plant-care-reminder.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +30,14 @@ import { StoryComponent } from './story/story.component';
     LandingComponent,
     PostComponent,
     AdminComponent,
-    StoryComponent
+    StoryComponent,
+    NewspaperLandingComponent,
+    PostDetailComponent,
+    PostExplorerComponent,
+    CodeSnippetDailyComponent,
+    GithubActivityComponent,
+    SpotifyActivityComponent,
+    PlantCareReminderComponent
   ],
   imports: [
     AppRoutingModule,
