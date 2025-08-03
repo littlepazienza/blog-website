@@ -25,9 +25,9 @@ export class HttpService {
 
   /**
    * Toggle between mock-data service and real backend.
-   * Set to false once Docker/Rust backend is running.
+   * NOW USING REAL NODE.JS BACKEND.
    */
-  private USE_MOCK_DATA = true;
+  private USE_MOCK_DATA = false;
 
   /**
    * Fetch all blog entries.
