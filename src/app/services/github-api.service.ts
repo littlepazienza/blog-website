@@ -9,7 +9,15 @@ import { catchError, retry, map, switchMap, tap } from 'rxjs/operators';
 const GITHUB_API_URL = 'https://api.github.com';
 const GITHUB_USERNAME = 'littlepazienza';
 const USER_EVENTS_ENDPOINT = `${GITHUB_API_URL}/users/${GITHUB_USERNAME}/events`;
+/** Endpoint for listing public repositories for the configured user */
 const USER_REPOS_ENDPOINT = `${GITHUB_API_URL}/users/${GITHUB_USERNAME}/repos`;
+
+// NOTE:
+// The browser automatically adds a User-Agent header; attempting to set it
+// manually in client-side code triggers the security error:
+// “Refused to set unsafe header "User-Agent"”.
+// Therefore we omit that header from our requests.
+
 const REPO_COMMITS_ENDPOINT = (repo: string) => 
   `${GITHUB_API_URL}/repos/${GITHUB_USERNAME}/${repo}/commits`;
 const COMMIT_ENDPOINT = (repo: string, sha: string) => 
@@ -127,8 +135,7 @@ export interface CodeSnippet {
 })
 export class GithubApiService {
   private headers = new HttpHeaders({
-    'Accept': 'application/vnd.github.v3+json',
-    'User-Agent': 'pazienza-blog-app'
+    'Accept': 'application/vnd.github.v3+json'
   });
 
   constructor(private http: HttpClient) { }
