@@ -1,0 +1,149 @@
+/* Code Snippet Daily Widget Styles */
+
+/* Common widget states - consistent with other widgets */
+.widget-loading, .widget-error, .widget-empty {
+  font-family: var(--newspaper-body-font);
+  text-align: center;
+  padding: 20px;
+  color: var(--newspaper-light-text);
+  font-style: italic;
+  border: 1px dashed var(--newspaper-border);
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.widget-error {
+  border-color: #ffcccc;
+  background-color: rgba(255, 0, 0, 0.03);
+}
+
+/* Snippet title styling */
+.snippet-title {
+  font-family: var(--newspaper-header-font);
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.function-name {
+  color: var(--newspaper-accent-dark);
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.in-text {
+  color: var(--newspaper-light-text);
+  font-style: italic;
+  margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+.repo-link {
+  color: var(--newspaper-accent-medium);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.repo-link:hover {
+  color: var(--newspaper-accent-light);
+  text-decoration: underline;
+}
+
+/* Code block styling */
+.code-block {
+  background-color: #f8f8f8;
+  border: 1px solid var(--newspaper-border);
+  border-radius: 4px;
+  padding: 15px;
+  margin: 0 0 15px 0;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre;
+  color: #333;
+  max-height: 300px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Add a subtle green tint to match the theme */
+.code-block code {
+  color: #1a3a20;
+}
+
+/* Description text */
+.snippet-description {
+  font-family: var(--newspaper-body-font);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--newspaper-text);
+  margin-bottom: 15px;
+  padding: 0 5px;
+}
+
+/* GitHub link */
+.view-file-link {
+  text-align: right;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--newspaper-border);
+}
+
+.view-file-link a {
+  font-family: var(--newspaper-body-font);
+  color: var(--newspaper-accent-medium);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.view-file-link a:hover {
+  color: var(--newspaper-accent-light);
+  text-decoration: underline;
+}
+
+/* Syntax highlighting colors - basic version */
+.code-block .keyword { color: #07a; }
+.code-block .string { color: #690; }
+.code-block .comment { color: #999; font-style: italic; }
+.code-block .number { color: #905; }
+.code-block .function { color: #dd4a68; }
+.code-block .operator { color: #9a6e3a; }
+.code-block .class { color: #07a; font-weight: bold; }
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+  .snippet-title {
+    font-size: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .function-name, .in-text, .repo-link {
+    margin-bottom: 3px;
+  }
+  
+  .code-block {
+    padding: 10px;
+    font-size: 0.85rem;
+    max-height: 250px;
+  }
+  
+  .snippet-description {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .view-file-link {
+    text-align: center;
+  }
+  
+  .code-block {
+    font-size: 0.8rem;
+    padding: 8px;
+    max-height: 200px;
+  }
+}

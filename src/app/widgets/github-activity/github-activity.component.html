@@ -1,1 +1,49 @@
-<p>github-activity works!</p>
+<!--
+  GitHub Activity Widget
+  --------------------------------------------------------------
+  Displays recent GitHub events once the data arrives.  Handles:
+    • Loading state
+    • Error state
+    • Populated state with recent events
+    • Link to full profile
+  Styles are inherited from the global newspaper-theme classes.
+-->
+
+<!-- Loading -->
+<div class="widget-loading" *ngIf="loading">
+  <p>Loading GitHub activity&hellip;</p>
+</div>
+
+<!-- Error -->
+<div class="widget-error" *ngIf="error">
+  <p>Unable to fetch GitHub activity at this moment.</p>
+</div>
+
+<!-- Activity List -->
+<ul class="github-activity-list" *ngIf="!loading && !error && events?.length">
+  <li class="activity-item" *ngFor="let evt of events">
+    <!-- Repository name -->
+    <span class="repo">{{ evt.repo?.name || 'unknown/repo' }}</span>
+
+    <!-- Event description placeholder -->
+    <span class="event-desc">
+      <!-- When wired, switch by evt.type (PushEvent, WatchEvent, etc.) -->
+      {{ evt.type || 'Activity' }}
+    </span>
+
+    <!-- Relative date placeholder -->
+    <span class="event-date">{{ evt.created_at | date:'shortDate' }}</span>
+  </li>
+</ul>
+
+<!-- Empty State -->
+<div class="widget-empty" *ngIf="!loading && !error && events?.length === 0">
+  <p>No recent GitHub events.</p>
+</div>
+
+<!-- Profile Link -->
+<div class="profile-link">
+  <a href="https://github.com/littlepazienza" target="_blank" rel="noopener">
+    View full profile on GitHub →
+  </a>
+</div>

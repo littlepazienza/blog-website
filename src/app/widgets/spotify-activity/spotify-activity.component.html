@@ -1,1 +1,47 @@
-<p>spotify-activity works!</p>
+<!--
+  Spotify Activity Widget
+  --------------------------------------------------------------
+  Displays a list of recently-played tracks once data is available.
+  Consistent with other widgets:
+    • Loading state
+    • Empty state
+    • Populated list
+    • Profile link
+  NOTE: Uses template bindings (`loading`, `tracks`) that will be
+  provided by the component’s TypeScript file.
+-->
+
+<!-- Loading State -->
+<div class="widget-loading" *ngIf="loading">
+  <p>Loading Spotify activity&hellip;</p>
+</div>
+
+<!-- Empty State -->
+<div class="widget-empty" *ngIf="!loading && tracks?.length === 0">
+  <p>No recent Spotify activity.</p>
+</div>
+
+<!-- Recently Played Tracks -->
+<ul class="recent-track-list"
+    *ngIf="!loading && tracks && tracks.length > 0">
+  <li class="track-item" *ngFor="let track of tracks">
+    <!-- Album Art -->
+    <img class="album-art"
+         [src]="track.albumArt"
+         [alt]="track.album + ' album art'">
+
+    <!-- Track Info -->
+    <div class="track-info">
+      <span class="track-name">{{ track.name }}</span>
+      <span class="track-artist">{{ track.artist }}</span>
+    </div>
+  </li>
+</ul>
+
+<!-- Spotify Profile Link -->
+<div class="profile-link">
+  <a href="https://open.spotify.com/user/{{ spotifyUserId }}"
+     target="_blank" rel="noopener">
+    View full listening profile on Spotify →
+  </a>
+</div>

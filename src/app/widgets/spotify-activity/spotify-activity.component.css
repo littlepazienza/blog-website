@@ -1,0 +1,133 @@
+/* Spotify Activity Widget Styles */
+
+/* Common widget states - consistent with other widgets */
+.widget-loading, .widget-empty {
+  font-family: var(--newspaper-body-font);
+  text-align: center;
+  padding: 20px;
+  color: var(--newspaper-light-text);
+  font-style: italic;
+  border: 1px dashed var(--newspaper-border);
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Track List */
+.recent-track-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.track-item {
+  padding: 10px;
+  border-bottom: 1px dotted var(--newspaper-border);
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.track-item:last-child {
+  border-bottom: none;
+}
+
+.track-item:hover {
+  background-color: rgba(127, 176, 105, 0.05);
+}
+
+/* Album Art */
+.album-art {
+  width: 50px;
+  height: 50px;
+  border-radius: 3px;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.track-item:hover .album-art {
+  transform: scale(1.05);
+}
+
+/* Track Info */
+.track-info {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.track-name {
+  font-family: var(--newspaper-body-font);
+  font-weight: bold;
+  color: var(--newspaper-accent-dark);
+  font-size: 0.95rem;
+  margin-bottom: 3px;
+}
+
+.track-artist {
+  font-family: var(--newspaper-body-font);
+  font-size: 0.85rem;
+  color: var(--newspaper-light-text);
+  font-style: italic;
+}
+
+/* Profile link - consistent with other widgets */
+.profile-link {
+  text-align: right;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid var(--newspaper-border);
+}
+
+.profile-link a {
+  font-family: var(--newspaper-body-font);
+  color: var(--newspaper-accent-medium);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.profile-link a:hover {
+  color: var(--newspaper-accent-light);
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .track-item {
+    padding: 8px 5px;
+  }
+  
+  .album-art {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .track-info {
+    margin-left: 10px;
+  }
+  
+  .track-name {
+    font-size: 0.9rem;
+  }
+  
+  .track-artist {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .widget-loading, .widget-empty {
+    padding: 15px 10px;
+  }
+  
+  .profile-link {
+    text-align: center;
+  }
+  
+  .album-art {
+    width: 35px;
+    height: 35px;
+  }
+}

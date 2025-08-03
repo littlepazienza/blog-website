@@ -1,1 +1,48 @@
-<p>code-snippet-daily works!</p>
+<!--
+  Code Snippet of the Day Widget
+  --------------------------------------------------------------
+  Shows a highlighted function from one of Ben’s GitHub repos.
+  States handled:
+    • loading
+    • error
+    • populated
+    • empty
+  NOTE: Currently uses mock data – will be wired to GitHub API later.
+-->
+
+<!-- Loading State -->
+<div class="widget-loading" *ngIf="loading">
+  <p>Fetching today’s code snippet&hellip;</p>
+</div>
+
+<!-- Error State -->
+<div class="widget-error" *ngIf="error">
+  <p>Oops! Unable to load the daily snippet.</p>
+</div>
+
+<!-- Populated -->
+<ng-container *ngIf="!loading && !error && snippet">
+  <h3 class="snippet-title">
+    <span class="function-name">{{ snippet.functionName }}</span>
+    <span class="in-text">in</span>
+    <a [href]="snippet.repoUrl" target="_blank" rel="noopener" class="repo-link">{{ snippet.repoName }}</a>
+  </h3>
+
+  <!-- Code Block -->
+  <pre class="code-block"><code>{{ snippet.code }}</code></pre>
+
+  <!-- Description -->
+  <p class="snippet-description">{{ snippet.description }}</p>
+
+  <!-- View on GitHub -->
+  <div class="view-file-link">
+    <a [href]="snippet.fileUrl" target="_blank" rel="noopener">
+      View full file on GitHub →
+    </a>
+  </div>
+</ng-container>
+
+<!-- Empty State -->
+<div class="widget-empty" *ngIf="!loading && !error && !snippet">
+  <p>No snippet selected for today. Check back tomorrow!</p>
+</div>

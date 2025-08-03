@@ -1,1 +1,30 @@
-<p>plant-care-reminder works!</p>
+<!--
+  Plant-Care Reminder Widget
+  --------------------------------------------------------------
+  Displays upcoming plant-care tasks (water, fertilise, repot, etc.).
+  Consistent “newspaper theme” structure:
+    • Loading           – shown while data loads
+    • Empty             – shown when there are no reminders
+    • Populated list    – list of upcoming tasks
+-->
+
+<!-- Loading State -->
+<div class="widget-loading" *ngIf="loading">
+  <p>Fetching plant-care reminders&hellip;</p>
+</div>
+
+<!-- Empty State -->
+<div class="widget-empty" *ngIf="!loading && reminders?.length === 0">
+  <p>No plant-care tasks due soon. 🌱</p>
+</div>
+
+<!-- Reminders List -->
+<ul class="reminder-list"
+    *ngIf="!loading && reminders && reminders.length > 0">
+  <li class="reminder-item"
+      *ngFor="let r of reminders">
+    <span class="plant-name">{{ r.plant }}</span>
+    <span class="task-label">{{ r.task }}</span>
+    <span class="due-date">{{ r.due | date:'mediumDate' }}</span>
+  </li>
+</ul>

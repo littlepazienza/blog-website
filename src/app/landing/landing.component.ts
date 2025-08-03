@@ -16,18 +16,16 @@ export class LandingComponent implements OnInit {
    * Initialize the landing component, load the blog posts from the server.
    */
   ngOnInit(): void {
-    this.httpService.getAllBlogs().subscribe(data => {
-      this.allBlogs = JSON.parse(data).blogs;
-      console.log(this.allBlogs);
+    this.httpService.getAllBlogs().subscribe({
+      next: (blogs: Blog[]) => {
+        this.allBlogs = blogs;
+        console.log('Blogs loaded:', this.allBlogs);
+      },
+      error: (err) => {
+        console.error('Failed to load blogs:', err);
+      }
     });
   }
 
-  // getStory(story: String) {
-  //   console.log(this.allBlogs);
-  //   let leftovers = JSON.parse(this.allBlogs).blogs.filter((blog: any) => blog.story == story);
-  //   if (leftovers.length > 0) {
-  //     return JSON.stringify(leftovers);
-  //   }
-  //   return "";
-  // }
+  // TODO: implement story-specific filtering using typed data model
 }

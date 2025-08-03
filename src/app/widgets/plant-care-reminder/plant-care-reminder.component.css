@@ -1,0 +1,134 @@
+/* Plant Care Reminder Widget Styles */
+
+/* Common widget states - consistent with other widgets */
+.widget-loading, .widget-empty {
+  font-family: var(--newspaper-body-font);
+  text-align: center;
+  padding: 20px;
+  color: var(--newspaper-light-text);
+  font-style: italic;
+  border: 1px dashed var(--newspaper-border);
+  border-radius: 3px;
+  background-color: rgba(127, 176, 105, 0.05); /* Light green tint for plant theme */
+}
+
+/* Reminder List */
+.reminder-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reminder-item {
+  padding: 12px 10px;
+  border-bottom: 1px dotted var(--newspaper-border);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--newspaper-body-font);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  border-left: 3px solid transparent;
+}
+
+.reminder-item:last-child {
+  border-bottom: none;
+}
+
+.reminder-item:hover {
+  background-color: rgba(127, 176, 105, 0.1);
+  transform: translateX(3px);
+  border-left-color: var(--newspaper-accent-medium);
+}
+
+/* Plant Name */
+.plant-name {
+  font-weight: bold;
+  color: var(--newspaper-accent-dark);
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+/* Task Label - styled as pills/badges */
+.task-label {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  background-color: var(--newspaper-accent-light);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Different colors for different tasks */
+.reminder-item:has(.task-label:contains('Water')) .task-label {
+  background-color: #5da9e9; /* Blue for water */
+}
+
+.reminder-item:has(.task-label:contains('Fertilize')) .task-label {
+  background-color: #8c6239; /* Brown for fertilizer */
+}
+
+.reminder-item:has(.task-label:contains('Prune')) .task-label {
+  background-color: #d64161; /* Red for pruning */
+}
+
+.reminder-item:has(.task-label:contains('Repot')) .task-label {
+  background-color: #7fb069; /* Green for repotting */
+}
+
+/* Due Date */
+.due-date {
+  font-size: 0.85rem;
+  color: var(--newspaper-light-text);
+  font-style: italic;
+}
+
+/* Add urgency indicator for tasks due very soon */
+.reminder-item:first-child .due-date::before {
+  content: "⚠️ ";
+  font-style: normal;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .reminder-item {
+    padding: 10px 8px;
+  }
+  
+  .plant-name {
+    font-size: 0.95rem;
+  }
+  
+  .task-label {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+  }
+  
+  .due-date {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .widget-loading, .widget-empty {
+    padding: 15px 10px;
+  }
+  
+  .reminder-item {
+    padding: 8px 5px;
+  }
+  
+  .plant-name, .task-label, .due-date {
+    margin-bottom: 3px;
+  }
+}
+
+/* Add a subtle plant icon to empty state */
+.widget-empty::before {
+  content: "🌿";
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
