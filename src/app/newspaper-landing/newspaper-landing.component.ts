@@ -40,8 +40,25 @@ export class NewspaperLandingComponent implements OnInit {
    * the featured & recent sections.
    */
   private loadBlogs(): void {
+    /* --------------------------------------------------------------
+     * DEBUG: Mark the beginning of the data-fetch cycle
+     * -------------------------------------------------------------- */
+    console.info(
+      '[NewspaperLanding] loadBlogs(): fetching articles – using mock =',
+      (this.httpService as any).USE_MOCK_DATA ?? 'unknown'
+    );
+
     this.httpService.getAllBlogs().subscribe({
       next: (blogs: Blog[]) => {
+        /* ----------------------------------------------------------
+         * DEBUG: Log raw payload received from the backend
+         * ---------------------------------------------------------- */
+        console.groupCollapsed(
+          `[NewspaperLanding] Received ${blogs?.length ?? 0} blog posts`
+        );
+        console.debug(blogs);
+        console.groupEnd();
+
         if (!blogs || blogs.length === 0) {
           this.featuredPost = null;
           this.recentPosts = [];
@@ -61,7 +78,10 @@ export class NewspaperLandingComponent implements OnInit {
         this.recentPosts = sorted.slice(1, 6);
       },
       error: err => {
-        console.error('Error fetching blogs:', err);
+        /* ----------------------------------------------------------
+         * DEBUG: Log any HTTP / parsing errors
+         * ---------------------------------------------------------- */
+        console.error('[NewspaperLanding] Error fetching blogs:', err);
         this.featuredPost = null;
         this.recentPosts = [];
       }

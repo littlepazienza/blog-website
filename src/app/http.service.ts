@@ -3,6 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Blog } from './blog';
 import { MockBlogDataService } from './services/mock-blog-data.service';
 
@@ -39,15 +40,33 @@ export class HttpService {
    * Remove this and uncomment the HTTP client code when backend is available.
    */
   getAllBlogs(): Observable<Blog[]> {
+    console.log(
+      `[HttpService] getAllBlogs() → mode: ${this.USE_MOCK_DATA ? 'MOCK' : 'API'}`
+    );
+
     if (this.USE_MOCK_DATA) {
       // Development mode – pull from local in-memory service
-      return this.mockBlogDataService.getBlogData();
+      return this.mockBlogDataService
+        .getBlogData()
+        .pipe(
+          tap(data =>
+            console.log(
+              `[HttpService] Mock service returned ${data?.length ?? 0} posts`
+            )
+          )
+        );
     }
 
     // Real backend mode
+    console.log(`[HttpService] Fetching from ${GET_ALL_BLOGS_ENDPOINT}`);
     return this.httpClient
       .get<Blog[]>(GET_ALL_BLOGS_ENDPOINT)
       .pipe(
+        tap(data =>
+          console.log(
+            `[HttpService] API response received – ${data?.length ?? 0} posts`
+          )
+        ),
         retry(2),                 // retry a couple of times before failing
         catchError(this.handleError)
       );
