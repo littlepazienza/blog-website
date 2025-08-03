@@ -1,0 +1,148 @@
+<!-- Newspaper-style Header -->
+<header class="newspaper-header">
+  <div class="header-top">
+    <div class="date-weather">
+      <span class="current-date">{{ today | date:'EEEE, MMMM d, y' }}</span>
+      <span class="weather">East Boston, MA - 72°F</span>
+    </div>
+    <h1 class="newspaper-title">The Pazienza Chronicle</h1>
+    <div class="header-links">
+      <a href="https://github.com/littlepazienza" target="_blank">GitHub</a> |
+      <a href="https://www.linkedin.com/in/benpazienza/" target="_blank">LinkedIn</a> |
+      <a routerLink="/explore">Explore</a> |
+      <a routerLink="/legacy">Legacy View</a>
+    </div>
+  </div>
+  
+  <nav class="main-nav">
+    <ul>
+      <li><a routerLink="/" class="active">Home</a></li>
+      <li><a routerLink="/explore?category=Planting">Planting</a></li>
+      <li><a routerLink="/explore?category=Cooking">Cooking</a></li>
+      <li><a routerLink="/explore?category=Programming">Programming</a></li>
+      <li><a routerLink="/explore">All Posts</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Main Newspaper Grid Layout -->
+<div class="newspaper-grid-container">
+  <!-- Featured Post - Main Story -->
+  <section class="featured-post grid-item">
+    <div class="section-header">
+      <h2>Featured Post</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="featured-content" *ngIf="featuredPost; else noFeaturedPost">
+      <h3 class="post-title">{{ featuredPost.title }}</h3>
+      <p class="post-date">{{ featuredPost.date }}</p>
+      <div class="featured-image" *ngIf="featuredPost.files && featuredPost.files.length > 0">
+        <img [src]="featuredPost.files[0]" alt="Featured post image">
+      </div>
+      <p class="post-excerpt">{{ featuredPost.text | slice:0:300 }}...</p>
+      <a [routerLink]="['/post', featuredPost._id]" class="read-more">Continue Reading →</a>
+    </div>
+    <ng-template #noFeaturedPost>
+      <div class="placeholder-content">
+        <h3>Welcome to My Blog!</h3>
+        <p>This is where I share my adventures in planting, cooking, and programming. Check back soon for featured content!</p>
+      </div>
+    </ng-template>
+  </section>
+
+  <!-- Recent Posts Sidebar -->
+  <section class="recent-posts grid-item">
+    <div class="section-header">
+      <h2>Recent Posts</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="recent-posts-list" *ngIf="recentPosts && recentPosts.length > 0; else noRecentPosts">
+      <div class="recent-post-item" *ngFor="let post of recentPosts">
+        <h4><a [routerLink]="['/post', post._id]">{{ post.title }}</a></h4>
+        <p class="post-category">{{ post.story }}</p>
+        <p class="post-date">{{ post.date }}</p>
+      </div>
+    </div>
+    <ng-template #noRecentPosts>
+      <p class="no-content">No recent posts available.</p>
+    </ng-template>
+  </section>
+
+  <!-- Code Snippet of the Day -->
+  <section class="code-snippet grid-item">
+    <div class="section-header">
+      <h2>Code Snippet of the Day</h2>
+      <div class="section-divider"></div>
+    </div>
+    <app-code-snippet-daily></app-code-snippet-daily>
+  </section>
+
+  <!-- GitHub Activity -->
+  <section class="github-activity grid-item">
+    <div class="section-header">
+      <h2>GitHub Activity</h2>
+      <div class="section-divider"></div>
+    </div>
+    <app-github-activity></app-github-activity>
+  </section>
+
+  <!-- Spotify Activity -->
+  <section class="spotify-activity grid-item">
+    <div class="section-header">
+      <h2>Recently Played</h2>
+      <div class="section-divider"></div>
+    </div>
+    <app-spotify-activity></app-spotify-activity>
+  </section>
+
+  <!-- Plant Care Reminder -->
+  <section class="plant-care grid-item">
+    <div class="section-header">
+      <h2>Plant Care Reminders</h2>
+      <div class="section-divider"></div>
+    </div>
+    <app-plant-care-reminder></app-plant-care-reminder>
+  </section>
+
+  <!-- Quick Links & Bookmarks -->
+  <section class="quick-links grid-item">
+    <div class="section-header">
+      <h2>Bookmarks & Resources</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="links-container">
+      <div class="link-category">
+        <h4>Programming</h4>
+        <ul>
+          <li><a href="https://angular.io/docs" target="_blank">Angular Docs</a></li>
+          <li><a href="https://github.com/trending" target="_blank">GitHub Trending</a></li>
+          <li><a href="https://dev.to" target="_blank">Dev.to</a></li>
+        </ul>
+      </div>
+      <div class="link-category">
+        <h4>Planting</h4>
+        <ul>
+          <li><a href="https://www.reddit.com/r/houseplants/" target="_blank">r/houseplants</a></li>
+          <li><a href="https://www.almanac.com/gardening" target="_blank">Farmer's Almanac</a></li>
+          <li><a href="https://www.gardeningknowhow.com/" target="_blank">Gardening Know How</a></li>
+        </ul>
+      </div>
+      <div class="link-category">
+        <h4>Cooking</h4>
+        <ul>
+          <li><a href="https://www.seriouseats.com/" target="_blank">Serious Eats</a></li>
+          <li><a href="https://www.bonappetit.com/" target="_blank">Bon Appétit</a></li>
+          <li><a href="https://www.epicurious.com/" target="_blank">Epicurious</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Newspaper Footer -->
+<footer class="newspaper-footer">
+  <div class="footer-content">
+    <p>© {{ today | date:'yyyy' }} Ben Pazienza | The Pazienza Chronicle</p>
+    <p class="footer-tagline">"Cultivating code, plants, and culinary creations"</p>
+  </div>
+</footer>

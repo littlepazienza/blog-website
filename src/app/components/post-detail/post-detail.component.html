@@ -1,0 +1,110 @@
+<!-- 
+  Post Detail Component
+  --------------------------------------------------------------
+  Displays a single blog post with all details including:
+  - Loading/not found states
+  - Full post content with formatting
+  - Image gallery
+  - Related posts
+  - Sharing functionality
+  - Responsive design using newspaper theme
+-->
+
+<!-- Breadcrumb Navigation -->
+<nav class="breadcrumb-nav" aria-label="Breadcrumb">
+  <ol class="breadcrumb">
+    <li><a routerLink="/">Home</a></li>
+    <li *ngIf="post"><a [routerLink]="['/category', post.story]">{{ post.story }}</a></li>
+    <li *ngIf="post" aria-current="page">{{ post.title }}</li>
+  </ol>
+</nav>
+
+<!-- Loading State -->
+<div class="loading-container" *ngIf="loading">
+  <div class="newspaper-loading">
+    <div class="spinner"></div>
+    <p>Loading article...</p>
+  </div>
+</div>
+
+<!-- Not Found State -->
+<div class="not-found-container" *ngIf="notFound && !loading">
+  <div class="newspaper-error">
+    <h2>Article Not Found</h2>
+    <p>We couldn't find the article you're looking for. It may have been moved or deleted.</p>
+    <a routerLink="/" class="newspaper-button">Return to Front Page</a>
+  </div>
+</div>
+
+<!-- Post Content -->
+<article class="post-container" *ngIf="post && !loading">
+  <!-- Post Header -->
+  <header class="post-header">
+    <h1 class="post-title">{{ post.title }}</h1>
+    <div class="post-metadata">
+      <span class="post-date">{{ post.date | date:'longDate' }}</span>
+      <span class="post-category">{{ post.story }}</span>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <div class="post-content">
+    <!-- Format the text with proper paragraphs -->
+    <div class="post-text">
+      <p *ngFor="let paragraph of post.text.split('\n\n')">{{ paragraph }}</p>
+    </div>
+
+    <!-- Image Gallery (if post has files) -->
+    <div class="post-gallery" *ngIf="post.files && post.files.length > 0">
+      <h3 class="gallery-title">Images</h3>
+      <div class="gallery-container">
+        <div class="gallery-image" *ngFor="let file of post.files">
+          <img [src]="file" [alt]="'Image for ' + post.title" (click)="openImage(file)">
+        </div>
+      </div>
+    </div>
+
+    <!-- Share Button -->
+    <div class="post-actions">
+      <button class="share-button" (click)="share()">
+        <i class="share-icon"></i>
+        Share This Article
+      </button>
+    </div>
+  </div>
+
+  <!-- Related Posts -->
+  <section class="related-posts" *ngIf="relatedPosts && relatedPosts.length > 0">
+    <h3 class="related-posts-title">More Articles in {{ post.story }}</h3>
+    <div class="related-posts-grid">
+      <div class="related-post-card" *ngFor="let related of relatedPosts">
+        <a [routerLink]="['/post', related._id]">
+          <div class="related-post-image" *ngIf="related.files && related.files.length > 0">
+            <img [src]="related.files[0]" [alt]="'Image for ' + related.title">
+          </div>
+          <div class="related-post-info">
+            <h4 class="related-post-title">{{ related.title }}</h4>
+            <p class="related-post-date">{{ related.date | date:'mediumDate' }}</p>
+            <p class="related-post-excerpt">{{ related.text.substring(0, 100) }}...</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Post Navigation -->
+  <nav class="post-navigation">
+    <div class="nav-previous" *ngIf="relatedPosts && relatedPosts.length > 0">
+      <a [routerLink]="['/post', relatedPosts[0]._id]">
+        <span class="nav-subtitle">Previous Article</span>
+        <span class="nav-title">{{ relatedPosts[0].title }}</span>
+      </a>
+    </div>
+    <div class="nav-next" *ngIf="relatedPosts && relatedPosts.length > 1">
+      <a [routerLink]="['/post', relatedPosts[1]._id]">
+        <span class="nav-subtitle">Next Article</span>
+        <span class="nav-title">{{ relatedPosts[1].title }}</span>
+      </a>
+    </div>
+  </nav>
+</article>

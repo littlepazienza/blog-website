@@ -1,0 +1,165 @@
+<!--
+  Post Explorer Component
+  --------------------------------------------------------------
+  Comprehensive post search and filtering interface with:
+  - Search functionality
+  - Category filtering
+  - Sorting options
+  - Pagination
+  - Grid view of posts
+  - Responsive newspaper-themed design
+-->
+
+<!-- Page Header -->
+<div class="explorer-header">
+  <h1 class="page-title">Explore Articles</h1>
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+    <ol class="breadcrumb">
+      <li><a routerLink="/">Home</a></li>
+      <li *ngIf="!selectedCategory" aria-current="page">Explore</li>
+      <li *ngIf="selectedCategory" aria-current="page">{{ selectedCategory }}</li>
+    </ol>
+  </nav>
+</div>
+
+<!-- Loading State -->
+<div class="loading-container" *ngIf="loading">
+  <div class="newspaper-loading">
+    <div class="spinner"></div>
+    <p>Loading articles...</p>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="explorer-container" *ngIf="!loading">
+  
+  <!-- Search and Filters -->
+  <div class="filters-container">
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input 
+        type="text" 
+        placeholder="Search articles..." 
+        [(ngModel)]="searchTerm"
+        (input)="onSearchTermChange(searchTerm)"
+        class="search-input"
+      >
+      <button class="search-button" (click)="onSearchTermChange(searchTerm)">
+        <i class="search-icon"></i>
+        Search
+      </button>
+    </div>
+    
+    <!-- Category Filters -->
+    <div class="category-filters">
+      <button 
+        class="category-button" 
+        [class.active]="selectedCategory === ''"
+        (click)="onCategoryChange('')">
+        All
+      </button>
+      <button 
+        class="category-button" 
+        [class.active]="selectedCategory === 'Programming'"
+        (click)="onCategoryChange('Programming')">
+        Programming
+      </button>
+      <button 
+        class="category-button" 
+        [class.active]="selectedCategory === 'Cooking'"
+        (click)="onCategoryChange('Cooking')">
+        Cooking
+      </button>
+      <button 
+        class="category-button" 
+        [class.active]="selectedCategory === 'Planting'"
+        (click)="onCategoryChange('Planting')">
+        Planting
+      </button>
+    </div>
+    
+    <!-- Sort Options -->
+    <div class="sort-options">
+      <label for="sort-select">Sort by:</label>
+      <select 
+        id="sort-select" 
+        [(ngModel)]="sortBy"
+        (change)="onSortChange(sortBy)"
+        class="sort-select">
+        <option value="date">Date (newest first)</option>
+        <option value="title">Title (A-Z)</option>
+        <option value="category">Category</option>
+      </select>
+    </div>
+    
+    <!-- Clear Filters -->
+    <button class="clear-filters-button" (click)="clearFilters()">
+      Clear Filters
+    </button>
+  </div>
+  
+  <!-- Results Summary -->
+  <div class="results-summary">
+    <p>
+      <span class="result-count">{{ filteredPosts.length }}</span> 
+      article{{ filteredPosts.length !== 1 ? 's' : '' }} found
+      <span *ngIf="selectedCategory"> in <strong>{{ selectedCategory }}</strong></span>
+      <span *ngIf="searchTerm"> matching "<strong>{{ searchTerm }}</strong>"</span>
+    </p>
+  </div>
+  
+  <!-- Results Grid -->
+  <div class="posts-grid" *ngIf="pagedPosts.length > 0">
+    <div class="post-card" *ngFor="let post of pagedPosts">
+      <a [routerLink]="['/post', post._id]" class="post-link">
+        <!-- Post Image (if available) -->
+        <div class="post-image" *ngIf="post.files && post.files.length > 0">
+          <img [src]="post.files[0]" [alt]="'Image for ' + post.title">
+        </div>
+        
+        <!-- Post Info -->
+        <div class="post-info">
+          <span class="post-category">{{ post.story }}</span>
+          <h3 class="post-title">{{ post.title }}</h3>
+          <p class="post-date">{{ post.date | date:'mediumDate' }}</p>
+          <p class="post-excerpt">{{ post.text.substring(0, 150) }}...</p>
+        </div>
+      </a>
+    </div>
+  </div>
+  
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="filteredPosts.length === 0">
+    <div class="empty-icon">📝</div>
+    <h3>No Articles Found</h3>
+    <p>Try adjusting your search or filters to find what you're looking for.</p>
+    <button class="newspaper-button" (click)="clearFilters()">Clear All Filters</button>
+  </div>
+  
+  <!-- Pagination -->
+  <div class="pagination-controls" *ngIf="totalPages > 1">
+    <button 
+      class="page-button prev" 
+      [disabled]="currentPage === 1"
+      (click)="goToPage(currentPage - 1)">
+      Previous
+    </button>
+    
+    <div class="page-numbers">
+      <button 
+        class="page-number" 
+        *ngFor="let page of [].constructor(totalPages); let i = index"
+        [class.active]="currentPage === i + 1"
+        (click)="goToPage(i + 1)">
+        {{ i + 1 }}
+      </button>
+    </div>
+    
+    <button 
+      class="page-button next" 
+      [disabled]="currentPage === totalPages"
+      (click)="goToPage(currentPage + 1)">
+      Next
+    </button>
+  </div>
+</div>

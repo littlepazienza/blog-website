@@ -1,0 +1,110 @@
+/* GitHub Activity Widget Styles */
+
+/* Common widget states */
+.widget-loading, .widget-error, .widget-empty {
+  font-family: var(--newspaper-body-font);
+  text-align: center;
+  padding: 20px;
+  color: var(--newspaper-light-text);
+  font-style: italic;
+  border: 1px dashed var(--newspaper-border);
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.widget-error {
+  border-color: #ffcccc;
+  background-color: rgba(255, 0, 0, 0.03);
+}
+
+/* GitHub Activity List */
+.github-activity-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.activity-item {
+  padding: 12px 0;
+  border-bottom: 1px dotted var(--newspaper-border);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--newspaper-body-font);
+  transition: background-color 0.2s ease;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-item:hover {
+  background-color: rgba(127, 176, 105, 0.05);
+}
+
+/* Repository name */
+.repo {
+  font-weight: bold;
+  color: var(--newspaper-accent-dark);
+  font-size: 0.95rem;
+  margin-bottom: 3px;
+}
+
+/* Event description */
+.event-desc {
+  font-size: 0.9rem;
+  color: var(--newspaper-text);
+  margin-bottom: 3px;
+}
+
+/* Event date */
+.event-date {
+  font-size: 0.8rem;
+  color: var(--newspaper-light-text);
+  font-style: italic;
+}
+
+/* Profile link */
+.profile-link {
+  text-align: right;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid var(--newspaper-border);
+}
+
+.profile-link a {
+  font-family: var(--newspaper-body-font);
+  color: var(--newspaper-accent-medium);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.profile-link a:hover {
+  color: var(--newspaper-accent-light);
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .activity-item {
+    padding: 10px 0;
+  }
+  
+  .repo {
+    font-size: 0.9rem;
+  }
+  
+  .event-desc {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .widget-loading, .widget-error, .widget-empty {
+    padding: 15px 10px;
+  }
+  
+  .profile-link {
+    text-align: center;
+  }
+}

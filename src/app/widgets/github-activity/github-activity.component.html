@@ -1,0 +1,75 @@
+<!--
+  GitHub Activity Widget
+  --------------------------------------------------------------
+  Displays recent GitHub events once the data arrives.  Handles:
+    • Loading state
+    • Error state
+    • Populated state with recent events
+    • Link to full profile
+  Styles are inherited from the global newspaper-theme classes.
+-->
+
+<!-- Loading -->
+<div class="widget-loading" *ngIf="loading">
+  <p>Loading GitHub activity&hellip;</p>
+</div>
+
+<!-- Error -->
+<div class="widget-error" *ngIf="error">
+  <p>Unable to fetch GitHub activity at this moment.</p>
+</div>
+
+<!-- Activity List -->
+<ul class="github-activity-list" *ngIf="!loading && !error && events?.length">
+  <li class="activity-item" *ngFor="let evt of events">
+    <!-- Repository name -->
+    <span class="repo">{{ evt.repo?.name || 'unknown/repo' }}</span>
+
+    <!-- Event description placeholder -->
+    <span class="event-desc" [ngSwitch]="evt.type">
+      <!-- Push events -->
+      <ng-container *ngSwitchCase="'PushEvent'">
+        pushed&nbsp;
+        <ng-container *ngIf="evt.payload?.commits?.length as cnt">
+          {{ cnt }} commit{{ cnt > 1 ? 's' : '' }}
+        </ng-container>
+        to&nbsp;<strong>{{ evt.repo?.name }}</strong>
+      </ng-container>
+
+      <!-- Repo created / branch created -->
+      <ng-container *ngSwitchCase="'CreateEvent'">
+        created&nbsp;
+        <strong>{{ evt.payload?.ref_type || 'ref' }}</strong>
+        <ng-container *ngIf="evt.payload?.ref">
+          “{{ evt.payload.ref }}”
+        </ng-container>
+        in&nbsp;<strong>{{ evt.repo?.name }}</strong>
+      </ng-container>
+
+      <!-- Starred / Watch events -->
+      <ng-container *ngSwitchCase="'WatchEvent'">
+        starred&nbsp;<strong>{{ evt.repo?.name }}</strong>
+      </ng-container>
+
+      <!-- Default fall-back -->
+      <ng-container *ngSwitchDefault>
+        {{ evt.type || 'Activity' }}
+      </ng-container>
+    </span>
+
+    <!-- Relative date placeholder -->
+    <span class="event-date">{{ evt.created_at | date:'shortDate' }}</span>
+  </li>
+</ul>
+
+<!-- Empty State -->
+<div class="widget-empty" *ngIf="!loading && !error && events?.length === 0">
+  <p>No recent GitHub events.</p>
+</div>
+
+<!-- Profile Link -->
+<div class="profile-link">
+  <a href="https://github.com/littlepazienza" target="_blank" rel="noopener">
+    View full profile on GitHub →
+  </a>
+</div>
