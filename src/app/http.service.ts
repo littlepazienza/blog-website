@@ -95,4 +95,31 @@ export class HttpService {
     }
     return throwError(() => error);
   }
+
+  /**
+   * Create a new blog post with markdown content and tags
+   */
+  createBlogPost(blogData: {
+    title: string;
+    text?: string;
+    story: string;
+    tags?: string;
+    date?: string;
+  }): Observable<any> {
+    const CREATE_BLOG_ENDPOINT = `${environment.apiUrl || 'http://localhost:34001'}/manage/add`;
+    
+    console.log('[HttpService] Creating blog post:', {
+      title: blogData.title,
+      hasContent: !!blogData.story,
+      tags: blogData.tags
+    });
+    
+    return this.httpClient
+      .post(CREATE_BLOG_ENDPOINT, blogData)
+      .pipe(
+        tap(response => console.log('[HttpService] Blog created successfully:', response)),
+        retry(1), // retry once on failure
+        catchError(this.handleError)
+      );
+  }
 }

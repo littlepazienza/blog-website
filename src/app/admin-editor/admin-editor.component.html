@@ -99,4 +99,23 @@ console.log('Hello World!');
       ></div>
     </div>
   </div>
+
+  <!-- Submit Section -->
+  <div class="submit-section">
+    <button 
+      class="submit-btn"
+      [disabled]="isSubmitting || !postTitle.trim() || !markdownContent.trim()"
+      (click)="onSubmitPost()"
+    >
+      <span *ngIf="!isSubmitting">✨ Publish Blog Post</span>
+      <span *ngIf="isSubmitting">🚀 Publishing...</span>
+    </button>
+    
+    <div class="submit-info">
+      <p><strong>Ready to publish?</strong> Your markdown content will be saved to the database.</p>
+      <p *ngIf="submitMessage" [ngClass]="{'success': submitSuccess, 'error': !submitSuccess}">
+        {{ submitMessage }}
+      </p>
+    </div>
+  </div>
 </div>

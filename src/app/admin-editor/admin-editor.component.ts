@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { marked } from 'marked';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-admin-editor',
@@ -16,8 +17,13 @@ export class AdminEditorComponent implements OnInit {
   postText: string = '';
   postTags: string = '';
   postStory: string = 'general';
+  
+  // Submit state
+  isSubmitting: boolean = false;
+  submitMessage: string = '';
+  submitSuccess: boolean = false;
 
-  constructor(private sanitizer: DomSanitizer) { 
+  constructor(private sanitizer: DomSanitizer, private httpService: HttpService) { 
     // Configure marked for safe HTML rendering (older API)
     marked.setOptions({
       gfm: true, // GitHub flavored markdown
@@ -69,5 +75,73 @@ Happy writing! 🚀`;
     } else {
       this.htmlPreview = '';
     }
+  }
+
+  /**
+   * Submit the blog post to the backend
+   */
+  onSubmitPost(): void {
+    // Prevent double submission
+    if (this.isSubmitting) return;
+    
+    // Validate required fields
+    if (!this.postTitle.trim() || !this.markdownContent.trim()) {
+      this.submitMessage = 'Title and content are required!';
+      this.submitSuccess = false;
+      return;
+    }
+    
+    this.isSubmitting = true;
+    this.submitMessage = '';
+    
+    // Prepare blog data for submission
+    const blogData = {
+      title: this.postTitle.trim(),
+      text: this.postText.trim() || '', // Description (optional)
+      story: this.markdownContent.trim(), // Markdown content
+      tags: this.postTags.trim(), // Comma-separated tags
+      // Let the backend auto-generate the date
+    };
+    
+    console.log('[AdminEditor] Submitting blog post:', {
+      title: blogData.title,
+      textLength: blogData.text.length,
+      storyLength: blogData.story.length,
+      tags: blogData.tags
+    });
+    
+    // Call the HTTP service
+    this.httpService.createBlogPost(blogData).subscribe({
+      next: (response) => {
+        console.log('[AdminEditor] Blog post created successfully!', response);
+        this.submitMessage = `🎉 Blog post "${blogData.title}" published successfully! ID: ${response.id}`;
+        this.submitSuccess = true;
+        this.isSubmitting = false;
+        
+        // Clear form after successful submission
+        setTimeout(() => {
+          this.clearForm();
+        }, 2000);
+      },
+      error: (error) => {
+        console.error('[AdminEditor] Failed to create blog post:', error);
+        this.submitMessage = `❌ Failed to publish blog post. ${error.error?.error || 'Please try again.'}`;
+        this.submitSuccess = false;
+        this.isSubmitting = false;
+      }
+    });
+  }
+
+  /**
+   * Clear the form after successful submission
+   */
+  private clearForm(): void {
+    this.postTitle = '';
+    this.postText = '';
+    this.postTags = '';
+    this.postStory = 'general';
+    this.markdownContent = '';
+    this.htmlPreview = '';
+    this.submitMessage = '';
   }
 }
