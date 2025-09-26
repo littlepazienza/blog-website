@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
-import { AdminComponent } from './admin/admin.component';
+import { AdminComponent } from './admin/admin.component';\r\nimport { AdminEditorComponent } from './admin-editor/admin-editor.component';
 import { NewspaperLandingComponent } from './newspaper-landing/newspaper-landing.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { PostExplorerComponent } from './post-explorer/post-explorer.component';
@@ -23,7 +23,7 @@ const routes: Routes = [
     // legacy landing page for comparison
     { path: 'legacy', component: LandingComponent },
 
-    { path: 'admin', component: AdminComponent },
+    { path: 'admin', component: AdminComponent },\r\n    { path: 'admin/editor', component: AdminEditorComponent },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }]
