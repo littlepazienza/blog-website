@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { marked } from 'marked';
 
 import { HttpService } from '../../http.service';
 import { Blog } from '../../blog';
@@ -24,13 +26,24 @@ export class PostDetailComponent implements OnInit {
   /** Posts from the same category (story) */
   relatedPosts: Blog[] = [];
 
+  /** Rendered markdown content */
+  markdownContent: SafeHtml = '';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpService,
     private title: Title,
-    private meta: Meta
-  ) {}
+    private meta: Meta,
+    private sanitizer: DomSanitizer
+  ) {
+    // Configure marked for safe HTML rendering (consistent with admin editor)
+    marked.setOptions({
+      gfm: true, // GitHub flavored markdown
+      breaks: true, // Convert line breaks to <br>
+      sanitize: false, // We'll sanitize through Angular
+    });
+  }
 
   ngOnInit(): void {
     /* --------------------------------------------------------------
@@ -68,6 +81,9 @@ export class PostDetailComponent implements OnInit {
 
         this.post    = found;
         this.loading = false;
+
+        /* Render markdown content from story field */
+        this.renderMarkdownContent(found.story);
 
         /* Update SEO meta tags */
         this.updateSeo(found);
