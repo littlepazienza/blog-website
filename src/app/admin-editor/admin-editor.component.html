@@ -4,6 +4,65 @@
     <p>Write your blog post in markdown format with live preview</p>
   </div>
 
+  <!-- Blog Post Metadata Form -->
+  <div class="metadata-form">
+    <h3>📝 Post Details</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="postTitle">Title *</label>
+        <input 
+          type="text" 
+          id="postTitle"
+          class="form-input"
+          [(ngModel)]="postTitle"
+          placeholder="Enter your blog post title..."
+          required
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="postText">Description</label>
+        <input 
+          type="text" 
+          id="postText"
+          class="form-input"
+          [(ngModel)]="postText"
+          placeholder="Short description or subtitle..."
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="postTags">Tags/Categories</label>
+        <input 
+          type="text" 
+          id="postTags"
+          class="form-input"
+          [(ngModel)]="postTags"
+          placeholder="cooking, planting, tech, lifestyle (comma-separated)"
+        />
+        <small class="form-help">Separate multiple tags with commas</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="postStory">Story Type</label>
+        <select 
+          id="postStory"
+          class="form-input"
+          [(ngModel)]="postStory"
+        >
+          <option value="cooking">🍳 Cooking</option>
+          <option value="planting">🌱 Planting/Gardening</option>
+          <option value="technology">💻 Technology</option>
+          <option value="lifestyle">✨ Lifestyle</option>
+          <option value="travel">✈️ Travel</option>
+          <option value="general">📝 General</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <div class="editor-layout">
     <!-- Left side: Markdown Editor -->
     <div class="editor-panel">

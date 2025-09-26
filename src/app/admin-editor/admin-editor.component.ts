@@ -10,9 +10,15 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class AdminEditorComponent implements OnInit {
   markdownContent: string = '';
   htmlPreview: SafeHtml = '';
+  
+  // Form fields for blog post metadata
+  postTitle: string = '';
+  postText: string = '';
+  postTags: string = '';
+  postStory: string = 'general';
 
   constructor(private sanitizer: DomSanitizer) { 
-    // Configure marked for safe HTML rendering
+    // Configure marked for safe HTML rendering (older API)
     marked.setOptions({
       gfm: true, // GitHub flavored markdown
       breaks: true, // Convert line breaks to <br>
@@ -53,7 +59,7 @@ Happy writing! 🚀`;
       try {
         const rawHtml = marked(this.markdownContent);
         // Sanitize the HTML to prevent XSS attacks
-        this.htmlPreview = this.sanitizer.bypassSecurityTrustHtml(rawHtml);
+        this.htmlPreview = this.sanitizer.bypassSecurityTrustHtml(rawHtml as string);
       } catch (error) {
         console.error('Error parsing markdown:', error);
         this.htmlPreview = this.sanitizer.bypassSecurityTrustHtml(
