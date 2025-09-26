@@ -2,10 +2,10 @@
   "name": "blog-website",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
+    "ng": "cross-env NODE_OPTIONS=--openssl-legacy-provider ng",
     "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider ng build",
+    "watch": "cross-env NODE_OPTIONS=--openssl-legacy-provider ng build --watch --configuration development",
     "test": "ng test"
   },
   "private": true,

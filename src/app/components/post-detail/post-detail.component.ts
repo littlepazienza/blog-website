@@ -151,4 +151,18 @@ export class PostDetailComponent implements OnInit {
     window.open(imageUrl, '_blank');
   }
 
+  private renderMarkdownContent(markdownText: string): void {
+    if (!markdownText) {
+      this.markdownContent = '';
+      return;
+    }
+    try {
+      const rawHtml = marked(markdownText);
+      this.markdownContent = this.sanitizer.bypassSecurityTrustHtml(rawHtml as string);
+    } catch (error) {
+      console.error('Error parsing markdown in post:', error);
+      this.markdownContent = this.sanitizer.bypassSecurityTrustHtml(`<p>${markdownText.replace(/\n/g, '<br>')}</p>`);
+    }
+  }
+
 }
