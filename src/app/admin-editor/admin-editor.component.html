@@ -1,1 +1,43 @@
-<p>admin-editor works!</p>
+<div class="admin-editor-container">
+  <div class="header">
+    <h1>Blog Post Editor</h1>
+    <p>Write your blog post in markdown format with live preview</p>
+  </div>
+
+  <div class="editor-layout">
+    <!-- Left side: Markdown Editor -->
+    <div class="editor-panel">
+      <h3>Editor</h3>
+      <textarea 
+        class="markdown-editor"
+        [(ngModel)]="markdownContent"
+        (input)="onMarkdownChange()"
+        placeholder="Write your blog post in markdown...
+
+# Your Blog Title
+
+Write your **blog post** content here using _markdown_ syntax.
+
+## Subheading
+
+- List item 1
+- List item 2
+
+```javascript
+// Code blocks are supported
+console.log('Hello World!');
+```
+"
+      ></textarea>
+    </div>
+
+    <!-- Right side: Live Preview -->
+    <div class="preview-panel">
+      <h3>Preview</h3>
+      <div 
+        class="markdown-preview"
+        [innerHTML]="htmlPreview"
+      ></div>
+    </div>
+  </div>
+</div>
