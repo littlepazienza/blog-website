@@ -51,7 +51,14 @@
   <div class="post-content">
     <!-- Format the text with proper paragraphs -->
     <div class="post-text">
-      <p *ngFor="let paragraph of post.text.split('\n\n')">{{ paragraph }}</p>
+      <!-- Render markdown content from story field -->
+      <div class="post-markdown-content" [innerHTML]="markdownContent"></div>
+      
+      <!-- Optional: Display description/subtitle if available and different from markdown -->
+      <div class="post-description" *ngIf="post.text && post.text.trim()">
+        <hr>
+        <p><em>{{ post.text }}</em></p>
+      </div>
     </div>
 
     <!-- Image Gallery (if post has files) -->

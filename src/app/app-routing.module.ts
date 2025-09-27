@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { AdminComponent } from './admin/admin.component';
+import { AdminEditorComponent } from './admin-editor/admin-editor.component';
 import { NewspaperLandingComponent } from './newspaper-landing/newspaper-landing.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { PostExplorerComponent } from './post-explorer/post-explorer.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
     { path: 'legacy', component: LandingComponent },
 
     { path: 'admin', component: AdminComponent },
+    { path: 'admin/editor', component: AdminEditorComponent },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }]

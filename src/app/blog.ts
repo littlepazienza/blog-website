@@ -9,4 +9,5 @@ export interface Blog {
   title: string;
   text: string;
   files: string[];
+  tags?: string[]; // New field for categories/tags
 }
