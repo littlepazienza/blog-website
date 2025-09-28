@@ -93,7 +93,7 @@ export class HttpService {
     } else {
       console.error(`Backend returned code ${error.status}, body was:`, error.error);
     }
-    return throwError(error);
+    return throwError(() => error);
   }
 
   /**
@@ -121,42 +121,5 @@ export class HttpService {
         retry(1), // retry once on failure
         catchError(this.handleError)
       );
-  }
-
-  // Generic HTTP methods for admin functionality
-  get(endpoint: string): Observable<any> {
-    const url = `${environment.apiUrl || 'http://localhost:34001'}${endpoint}`;
-    console.log(`[HttpService] GET ${url}`);
-    return this.httpClient.get<any>(url).pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
-  }
-
-  post(endpoint: string, data: any): Observable<any> {
-    const url = `${environment.apiUrl || 'http://localhost:34001'}${endpoint}`;
-    console.log(`[HttpService] POST ${url}`, data);
-    return this.httpClient.post<any>(url, data).pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
-  }
-
-  put(endpoint: string, data: any): Observable<any> {
-    const url = `${environment.apiUrl || 'http://localhost:34001'}${endpoint}`;
-    console.log(`[HttpService] PUT ${url}`, data);
-    return this.httpClient.put<any>(url, data).pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
-  }
-
-  delete(endpoint: string): Observable<any> {
-    const url = `${environment.apiUrl || 'http://localhost:34001'}${endpoint}`;
-    console.log(`[HttpService] DELETE ${url}`);
-    return this.httpClient.delete<any>(url).pipe(
-      retry(1),
-      catchError(this.handleError)
-    );
   }
 }
