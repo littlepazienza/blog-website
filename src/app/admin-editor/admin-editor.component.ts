@@ -22,6 +22,23 @@ export class AdminEditorComponent implements OnInit {
   isSubmitting: boolean = false;
   submitMessage: string = '';
   submitSuccess: boolean = false;
+  
+  // Editor placeholder text (moved from HTML to avoid production build issues)
+  editorPlaceholder: string = `Write your blog post in markdown...
+
+# Your Blog Title
+
+Write your **blog post** content here using _markdown_ syntax.
+
+## Subheading
+
+- List item 1
+- List item 2
+
+\`\`\`javascript
+// Code blocks are supported
+console.log('Hello World!');
+\`\`\``;
 
   constructor(private sanitizer: DomSanitizer, private httpService: HttpService) { 
     // Configure marked for safe HTML rendering (older API)
