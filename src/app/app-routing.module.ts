@@ -4,6 +4,7 @@ import { LandingComponent } from './landing/landing.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminEditorComponent } from './admin-editor/admin-editor.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminManageComponent } from './admin-manage/admin-manage.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { NewspaperLandingComponent } from './newspaper-landing/newspaper-landing.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
 
     { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService] },
     { path: 'admin/editor', component: AdminEditorComponent, canActivate: [AuthGuardService] },
+    { path: 'admin/manage', component: AdminManageComponent, canActivate: [AuthGuardService] },
     { path: 'admin/login', component: AdminLoginComponent },
 
     // otherwise redirect to home

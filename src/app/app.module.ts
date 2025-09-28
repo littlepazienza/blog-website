@@ -27,6 +27,7 @@ import { PlantCareReminderComponent } from './widgets/plant-care-reminder/plant-
 import { FormsModule } from '@angular/forms';
 import { AdminEditorComponent } from './admin-editor/admin-editor.component';   // <-- Needed for ngModel in PostExplorer
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminManageComponent } from './admin-manage/admin-manage.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
     SpotifyActivityComponent,
     PlantCareReminderComponent,
     AdminEditorComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    AdminManageComponent
   ],
   imports: [
     AppRoutingModule,

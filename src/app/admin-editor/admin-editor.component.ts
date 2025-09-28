@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { marked } from 'marked';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpService } from '../http.service';
@@ -23,6 +24,11 @@ export class AdminEditorComponent implements OnInit {
   submitMessage: string = '';
   submitSuccess: boolean = false;
   
+  // Edit mode
+  isEditMode: boolean = false;
+  editBlogId: string = '';
+  isLoadingBlog: boolean = false;
+  
   // Editor placeholder text (moved from HTML to avoid production build issues)
   editorPlaceholder: string = `Write your blog post in markdown...
 
@@ -40,7 +46,12 @@ Write your **blog post** content here using _markdown_ syntax.
 console.log('Hello World!');
 \`\`\``;
 
-  constructor(private sanitizer: DomSanitizer, private httpService: HttpService) { 
+  constructor(
+    private sanitizer: DomSanitizer, 
+    private httpService: HttpService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { 
     // Configure marked for safe HTML rendering (older API)
     marked.setOptions({
       gfm: true, // GitHub flavored markdown
