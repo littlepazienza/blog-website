@@ -42,13 +42,8 @@ export class AdminManageComponent implements OnInit {
     this.errorMessage = '';
     
     try {
-      const response = await this.httpService.get('/admin/blogs').toPromise();
-      
-      if (response.success) {
-        this.blogs = response.blogs;
-      } else {
-        this.errorMessage = 'Failed to load blog posts';
-      }
+      const blogs = await this.httpService.get('/manage/all').toPromise();
+      this.blogs = blogs;
     } catch (error: any) {
       console.error('Error loading blogs:', error);
       if (error.status === 401) {
