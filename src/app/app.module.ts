@@ -26,6 +26,7 @@ import { SpotifyActivityComponent } from './widgets/spotify-activity/spotify-act
 import { PlantCareReminderComponent } from './widgets/plant-care-reminder/plant-care-reminder.component';
 import { FormsModule } from '@angular/forms';
 import { AdminEditorComponent } from './admin-editor/admin-editor.component';   // <-- Needed for ngModel in PostExplorer
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AdminEditorComponent } from './admin-editor/admin-editor.component';   
     GithubActivityComponent,
     SpotifyActivityComponent,
     PlantCareReminderComponent,
-    AdminEditorComponent
+    AdminEditorComponent,
+    AdminLoginComponent
   ],
   imports: [
     AppRoutingModule,
