@@ -1,0 +1,44 @@
+<div class="login-container">
+  <div class="login-form">
+    <div class="login-header">
+      <h1>Admin Login</h1>
+      <p>Enter your password to access the admin dashboard</p>
+    </div>
+
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          class="form-control"
+          placeholder="Enter admin password"
+          (keypress)="onKeyPress($event)"
+          [disabled]="isLoading"
+          required
+          autofocus
+        />
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        <i class="error-icon">⚠️</i>
+        {{ errorMessage }}
+      </div>
+
+      <button 
+        type="submit" 
+        class="login-button"
+        [disabled]="isLoading || !password.trim()"
+      >
+        <span *ngIf="!isLoading">Login</span>
+        <span *ngIf="isLoading" class="loading-spinner">🔄 Logging in...</span>
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <a routerLink="/" class="back-link">← Back to Blog</a>
+    </div>
+  </div>
+</div>
