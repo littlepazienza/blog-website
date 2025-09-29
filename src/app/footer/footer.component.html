@@ -1,0 +1,49 @@
+<!-- Footer appears on all non-admin pages -->
+<footer class="site-footer" *ngIf="!isAdminRoute()">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#" class="footer-link">About Us</a></li>
+        <li><a href="#" class="footer-link">Our Story</a></li>
+        <li><a href="#" class="footer-link">Contact</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-section">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#" class="footer-link">Newsletter</a></li>
+        <li><a href="#" class="footer-link">RSS Feed</a></li>
+        <li><a href="#" class="footer-link">Archive</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-section">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#" class="footer-link">Twitter</a></li>
+        <li><a href="#" class="footer-link">GitHub</a></li>
+        <li><a href="#" class="footer-link">LinkedIn</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-section">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#" class="footer-link">Help Center</a></li>
+        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+        <li><a href="#" class="footer-link">Terms of Service</a></li>
+        <!-- Admin link (subtle, for admin access) -->
+        <li><a routerLink="/admin/login" class="footer-link admin-link">Admin</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <div class="footer-bottom-content">
+      <p>&copy; 2025 Ienza Tech Blog. All rights reserved.</p>
+      <p class="footer-tagline">Growing knowledge through technology, cooking, and planting.</p>
+    </div>
+  </div>
+</footer>

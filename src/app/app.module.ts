@@ -28,6 +28,7 @@ import { FormsModule } from '@angular/forms';
 import { AdminEditorComponent } from './admin-editor/admin-editor.component';   // <-- Needed for ngModel in PostExplorer
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminManageComponent } from './admin-manage/admin-manage.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AdminManageComponent } from './admin-manage/admin-manage.component';
     PlantCareReminderComponent,
     AdminEditorComponent,
     AdminLoginComponent,
-    AdminManageComponent
+    AdminManageComponent,
+    FooterComponent
   ],
   imports: [
     AppRoutingModule,
